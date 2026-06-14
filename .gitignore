@@ -1,0 +1,9 @@
+# Secrets & local config — never commit
+.env
+.env.*
+
+# OS / editor cruft
+.DS_Store
+
+# Local Claude Code state (keep skills/ + workflows/, ignore local settings)
+.claude/settings.local.json
