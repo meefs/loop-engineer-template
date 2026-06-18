@@ -1,56 +1,90 @@
-# loop-engineer-setup
+# loop-engineer-template
 
-A starter kit for running **long-lived, autonomous agent loops** on top of a plain
-**markdown-in-git** knowledge base. It's the generic, productized version of a setup that's
-been driving real growth/ops work for [superdesign.dev](https://superdesign.dev).
+A starter template for building **loop engineers**: agents that get triggered on their own,
+pick up work, ship it, verify it, and log what they learned, so the work compounds without you
+prompting every step. It's the productized version of the setup my team runs in production, and
+what I teach at [AI Builder Club](https://www.aibuilderclub.com/lp/loop-engineer?utm_source=github&utm_campaign=loop-engineer-template).
 
-The idea: your repo *is* the agent's brain and its work queue. Everything an agent learns,
-decides, or ships is a small markdown file with frontmatter — diffable, reviewable, and
-writable by the agent itself. No database to stand up, no app to deploy. Just `git`.
+## What's a loop engineer?
 
-## What you get
+The shift: you stop prompting a coding agent task-by-task, and start **designing loops**.
 
-| File | What it is |
-|---|---|
-| `ARCHITECTURE.md` | The knowledge-base model: artifacts-by-kind, domains-as-loops, the two-layer body, the rules. Read this once. |
-| `CLAUDE.md` | A placeholder template for *your* context — who the agent is, what it works on, your tools. Fill it in. |
-| `LOG.md` | The global activity feed (empty, with the entry grammar at the top). |
-| `signals/ docs/ domains/` | The starter folders. Each has a `README` that **is** its schema. |
-| `.claude/skills/new-loop/` | A skill that spins up a new loop (domain), test-runs it, and writes its README. |
-| `.claude/workflows/ship-change.js` | A reusable workflow that ships a scoped code change end-to-end (worktree → implement → simplify → review → verify → PR). For loops that touch code. |
+A loop is an agent that wakes up on a trigger (a cron, a webhook, an incident, another agent),
+does some investigation and work, and writes what it found and did into a shared, file-based
+memory. Next run it reads that memory and keeps going. The real power is **compounding**: many
+loops (support, SEO, product, ads) read and write the *same* folders, so a friction the support
+loop logs can get picked up by the product loop, and a keyword the ads loop finds can feed the
+SEO loop. One shared brain, many loops.
+
+Building one comes down to four ingredients:
+
+1. **Triggers:** cron, webhook, an incident, or another agent wakes the loop at the right time.
+2. **A file + logging structure:** the shared memory loops read and write (this template).
+3. **Tools & connectors:** so the agent can do real work (your skills/MCPs).
+4. **A codebase harness:** so the agent can run, test, and verify its own work autonomously.
+
+This repo gives you #2 and #4 out of the box, plus the scaffolding to add the rest.
+
+Want the full walkthrough of the concept and how my team designs compounding loops? Watch the video:
+
+[![The loop engineer: how to design compounding agent loops](https://img.youtube.com/vi/W6x-hb44C0c/maxresdefault.jpg)](https://youtu.be/W6x-hb44C0c)
+
+## What's included
+
+```
+loop-engineer-template/
+├── ARCHITECTURE.md          the knowledge-base model (read this once)
+├── CLAUDE.md                template for YOUR context: fill in the {{PLACEHOLDER}}s
+├── LOG.md                   global work log (one line per bulk of work)
+├── signals/  docs/  domains/  starter artifact + loop folders, each README IS its schema
+└── .claude/
+    ├── skills/
+    │   ├── new-loop/                 spin up a new loop (domain): scaffold, test-run, write its contract
+    │   ├── setup-codebase-harness/   the codebase harness: make any repo agent-ready
+    │   ├── dev-local-setup/            └ one-command dev stack
+    │   ├── e2e-setup/                  └ a real e2e test gate
+    │   └── pr/                         └ verify-before-ship (a fresh sub-agent proves it works, then opens the PR)
+    └── workflows/
+        └── ship-change.js           ship a scoped code change end-to-end (worktree → implement → review → verify → PR)
+```
+
+- **The knowledge base** (`ARCHITECTURE.md`, `signals/ docs/ domains/`, `LOG.md`) is the shared
+  memory: artifacts filed by kind, domains as loops, every file with an append-only `## Timeline`.
+- **The codebase harness** (the skills under `.claude/skills/`) is what makes a code repo
+  *legible, executable, and verifiable* so loops can ship code without you babysitting them.
 
 ## Quickstart
 
-1. **Copy this folder** to wherever you want your agent's knowledge base to live, and
-   `git init` it (or fork/clone this repo).
-2. **Fill in `CLAUDE.md`** — replace every `{{PLACEHOLDER}}`. This is the single most
-   important step: it's the context the agent reads on every session.
-3. **Read `ARCHITECTURE.md`** so you (and the agent) share the same model. It's short.
-4. **Spin up your first loop.** In Claude Code, run the `new-loop` skill:
-   > `/new-loop` — then tell it the loop's name, goal, and what it should do.
-
-   It scaffolds `domains/<loop>/README.md`, does one real test run, and records the run in
-   the loop's `## Timeline` and in `LOG.md`.
-5. **Let it run.** Each session, the agent reads `CLAUDE.md` + the relevant domain README,
-   does work, writes artifacts (`signals/ docs/ tasks/`), and appends to `LOG.md`. For code
-   changes, it can drive `ship-change.js`.
-
-## Core concepts (one paragraph)
-
-An **artifact** is one markdown file with one job, filed by **kind**. Start with just two:
-`signal` = evidence, `doc` = durable knowledge. Committed work lives as a backlog line in the
-loop's README until it earns its own `task` kind. A **domain** is a **loop**: a thread of work
-with a charter, a cadence, and metrics. Its
-`README` holds the loop's live state and *links* to its artifacts (it never contains them).
-Everything carries an optional append-only `## Timeline` — *body = what's true now, Timeline
-= what happened*. The global `LOG.md` is the one-line-per-ship feed across all loops.
-
-That's the whole system. Read `ARCHITECTURE.md` for the why and the rejected alternatives.
+1. **Copy this folder** to wherever you want your agent's knowledge base to live.
+2. **Fill in `CLAUDE.md`:** replace every `{{PLACEHOLDER}}`. This is the context the agent reads
+   on every session, so it's the most important step.
+3. **Read `ARCHITECTURE.md`** so you and the agent share the same model. It's short.
+4. **Spin up your first loop.** In Claude Code: run `/new-loop`, then tell it the loop's name,
+   goal, and what it should do. It scaffolds `domains/<loop>/README.md`, does one real test run,
+   and logs it.
+5. **Harness the repo your loop ships into.** Run `/setup-codebase-harness` in that code repo so
+   the agent can run, test, and verify its own work.
+6. **Let it run.** Each session the agent reads `CLAUDE.md` + the relevant domain README, does
+   work, writes artifacts, and appends to `LOG.md`. For code changes it drives `ship-change.js`
+   and ships via `/pr`.
 
 ## Requirements
 
 - [Claude Code](https://claude.com/claude-code) (the skills + workflow assume it).
 - `git`. That's the only hard dependency.
-- `ship-change.js` additionally wants the repo it ships into to be a git repo with a working
-  build/test setup. It uses Codex for review if available and degrades to a plain review
-  agent if not.
+- `ship-change.js` and the harness skills want the repo they ship into to be a git repo with a
+  working build/test setup. They use Codex for review if available, and degrade gracefully if not.
+
+## Go deeper
+
+This template gets you the structure. If you want to learn how to actually build agents and run
+compounding loops for your own business, that's what I go deep on inside
+**[AI Builder Club](https://www.aibuilderclub.com/lp/loop-engineer?utm_source=github&utm_campaign=loop-engineer-template)**:
+weekly live builder workshops, courses on production AI agents, AI coding beyond the basics, and
+building your first LLM apps, plus a community of people building the same way.
+
+[![Join AI Builder Club](assets/ai-builder-club.png)](https://www.aibuilderclub.com/lp/loop-engineer?utm_source=github&utm_campaign=loop-engineer-template)
+
+**→ [Join AI Builder Club](https://www.aibuilderclub.com/lp/loop-engineer?utm_source=github&utm_campaign=loop-engineer-template)**
+
+Built by [Jason Zhou](https://x.com/jasonzhou1993) (AI Jason).
