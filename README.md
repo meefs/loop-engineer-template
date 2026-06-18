@@ -27,7 +27,7 @@ This repo gives you #2 and #4 out of the box, plus the scaffolding to add the re
 
 Want the full walkthrough of the concept and how my team designs compounding loops? Watch the video:
 
-[![The loop engineer: how to design compounding agent loops](https://img.youtube.com/vi/W6x-hb44C0c/maxresdefault.jpg)](https://youtu.be/W6x-hb44C0c)
+[![The loop engineer: how to design compounding agent loops](assets/video-thumbnail.png)](https://youtu.be/W6x-hb44C0c)
 
 ## What's included
 
