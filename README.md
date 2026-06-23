@@ -6,11 +6,12 @@ for building **loop engineers**: agents that get triggered on their own, pick up
 verify it, and log what they learned, so the work compounds without you prompting every step.
 It's the productized version of the setup my team runs in production.
 
-Two flagship plugins today (more to come):
+The flagship plugin is **`loop-engineer`** (more skills/plugins to come). It bundles two
+capabilities:
 
-- **`codebase-harness`** — make any repo agent-ready (run, test, verify, ship — including an
+- **Codebase harness** — make any repo agent-ready (run, test, verify, ship — including an
   isolated cloud box per agent so loops ship code in *parallel*).
-- **`loops`** — spin up compounding agent loops on a shared, file-based knowledge base.
+- **Loops** — spin up compounding agent loops on a shared, file-based knowledge base.
 
 ## What's a loop engineer?
 
@@ -41,10 +42,9 @@ Want the full walkthrough of the concept and how my team designs compounding loo
 
 ```text
 /plugin marketplace add AI-Builder-Club/skills
-/plugin install codebase-harness@ai-builder-club
-/plugin install loops@ai-builder-club
+/plugin install loop-engineer@ai-builder-club
 ```
-(Install whichever you need — they're independent.)
+One plugin, all the skills below.
 
 ## The two entry points
 
@@ -60,7 +60,7 @@ Run it again any time to add another loop.
 
 ## The skills (when to use which)
 
-**Plugin: `codebase-harness`**
+**Codebase harness** — make a repo agent-ready
 
 | Skill | Use it when… |
 |---|---|
@@ -70,7 +70,7 @@ Run it again any time to add another loop.
 | **`crabbox-setup`** | Loops ship code **in parallel** — give each agent its own isolated **cloud** stack (one laptop can't run N). The cloud counterpart to dev-local. |
 | **`pr`** | A change is ready — a fresh sub-agent proves the feature works, then opens the PR with proof. |
 
-**Plugin: `loops`**
+**Loops** — the shared knowledge base
 
 | Skill | Use it when… |
 |---|---|
@@ -92,14 +92,17 @@ writes artifacts, and appends to `LOG.md`. For code changes it drives `ship-chan
 
 ```
 skills/                                   a Claude Code plugin marketplace
-├── .claude-plugin/marketplace.json       lists the plugins below
+├── .claude-plugin/marketplace.json       lists the plugin below
 └── plugins/
-    ├── codebase-harness/
-    │   ├── .claude-plugin/plugin.json
-    │   └── skills/{setup-codebase-harness, dev-local-setup, e2e-setup, crabbox-setup, pr}/
-    └── loops/
+    └── loop-engineer/
         ├── .claude-plugin/plugin.json
-        └── skills/new-loop/   (+ references/: ARCHITECTURE.md · LOG.md · KNOWLEDGE_SETUP.md · CLAUDE.template.md)
+        └── skills/
+            ├── new-loop/                 (loops) — + references/: ARCHITECTURE · LOG · KNOWLEDGE_SETUP · CLAUDE.template
+            ├── setup-codebase-harness/   (harness) — orchestrator
+            ├── dev-local-setup/          (harness)
+            ├── e2e-setup/                (harness)
+            ├── crabbox-setup/            (harness) — isolated cloud box per agent
+            └── pr/                       (harness) — verify-before-ship  (+ ship-change.js)
 ```
 
 ## Go deeper

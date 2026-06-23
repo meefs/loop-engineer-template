@@ -86,5 +86,5 @@ to run it again (cadence + entry point). Keep it tight.
 - **One loop = one separable workstream.** If what the user described is really part of an
   existing loop, add it there (a backlog line + a `domain:` tag) instead of a near-duplicate.
 - For loops that **ship code**, the loop's run drives the `pr` skill / `ship-change` and gets each
-  agent its own isolated stack via `crabbox-setup` — both in the **`codebase-harness`** plugin.
+  agent its own isolated stack via `crabbox-setup` (sibling harness skills in this plugin).
   Point the README's Backlog at them.
