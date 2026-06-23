@@ -1,0 +1,25 @@
+{
+  "name": "ai-builder-club",
+  "owner": {
+    "name": "AI Builder Club (Jason Zhou)",
+    "url": "https://www.aibuilderclub.com/lp/loop-engineer"
+  },
+  "metadata": {
+    "description": "Skills we share at AI Builder Club for building loop engineers — agents that run, test, ship, and verify their own work. Flagship plugins: codebase-harness and loops.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "codebase-harness",
+      "source": "./plugins/codebase-harness",
+      "description": "Make any repo agent-ready: legible docs/lints, a one-command dev stack, a real e2e gate, an isolated cloud box per agent (crabbox), and verify-before-ship.",
+      "category": "engineering"
+    },
+    {
+      "name": "loops",
+      "source": "./plugins/loops",
+      "description": "Spin up compounding agent loops on a file-based knowledge base (signals/docs/domains + LOG). Bootstraps the substrate on first run.",
+      "category": "engineering"
+    }
+  ]
+}
