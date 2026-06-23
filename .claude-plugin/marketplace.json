@@ -10,8 +10,8 @@
   },
   "plugins": [
     {
-      "name": "loop-engineer",
-      "source": "./plugins/loop-engineer",
+      "name": "skills",
+      "source": "./plugins/skills",
       "description": "Loops (a file-based knowledge base) + a codebase harness (dev-local, e2e, crabbox cloud boxes, verify-before-ship) so agents can run, test, and ship code autonomously.",
       "category": "engineering"
     }

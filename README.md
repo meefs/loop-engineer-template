@@ -6,8 +6,7 @@ for building **loop engineers**: agents that get triggered on their own, pick up
 verify it, and log what they learned, so the work compounds without you prompting every step.
 It's the productized version of the setup my team runs in production.
 
-The flagship plugin is **`loop-engineer`** (more skills/plugins to come). It bundles two
-capabilities:
+The flagship plugin is **`skills`** (more to come). It bundles two capabilities:
 
 - **Codebase harness** — make any repo agent-ready (run, test, verify, ship — including an
   isolated cloud box per agent so loops ship code in *parallel*).
@@ -42,7 +41,7 @@ Want the full walkthrough of the concept and how my team designs compounding loo
 
 ```text
 /plugin marketplace add AI-Builder-Club/skills
-/plugin install loop-engineer@ai-builder-club
+/plugin install skills@ai-builder-club
 ```
 One plugin, all the skills below.
 
@@ -94,7 +93,7 @@ writes artifacts, and appends to `LOG.md`. For code changes it drives `ship-chan
 skills/                                   a Claude Code plugin marketplace
 ├── .claude-plugin/marketplace.json       lists the plugin below
 └── plugins/
-    └── loop-engineer/
+    └── skills/
         ├── .claude-plugin/plugin.json
         └── skills/
             ├── new-loop/                 (loops) — + references/: ARCHITECTURE · LOG · KNOWLEDGE_SETUP · CLAUDE.template
