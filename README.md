@@ -6,7 +6,7 @@ for building **loop engineers**: agents that get triggered on their own, pick up
 verify it, and log what they learned, so the work compounds without you prompting every step.
 It's the productized version of the setup my team runs in production.
 
-The flagship plugin is **`skills`** (more to come). It bundles two capabilities:
+Two flagship skill sets (more to come):
 
 - **Codebase harness** — make any repo agent-ready (run, test, verify, ship — including an
   isolated cloud box per agent so loops ship code in *parallel*).
