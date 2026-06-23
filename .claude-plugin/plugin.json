@@ -1,0 +1,21 @@
+{
+  "name": "skills",
+  "description": "Build loop engineers: a file-based knowledge base your agents read/write (loops), plus a codebase harness (dev-local stack, e2e gate, an isolated cloud box per agent via crabbox, and verify-before-ship) so loops can run, test, and ship code autonomously.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jason Zhou (AI Jason)",
+    "url": "https://www.aibuilderclub.com/lp/loop-engineer"
+  },
+  "homepage": "https://github.com/AI-Builder-Club/skills",
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "loops",
+    "knowledge-base",
+    "codebase-harness",
+    "e2e",
+    "crabbox",
+    "daytona",
+    "pr"
+  ]
+}

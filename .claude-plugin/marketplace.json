@@ -1,0 +1,19 @@
+{
+  "name": "ai-builder-club",
+  "owner": {
+    "name": "AI Builder Club (Jason Zhou)",
+    "url": "https://www.aibuilderclub.com/lp/loop-engineer"
+  },
+  "metadata": {
+    "description": "Skills we share at AI Builder Club for building loop engineers — agents that run, test, ship, and verify their own work.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "skills",
+      "source": "./",
+      "description": "Loops (a file-based knowledge base) + a codebase harness (dev-local, e2e, crabbox cloud boxes, verify-before-ship) so agents can run, test, and ship code autonomously.",
+      "category": "engineering"
+    }
+  ]
+}
