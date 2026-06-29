@@ -35,7 +35,9 @@ case "$CMD" in
 up)
   echo "▸ leasing box…"
   out="$(crabbox warmup --provider "$PROVIDER" --slug "$NAME" 2>&1)"; echo "$out"
-  ID="$(echo "$out" | grep -oE 'lease=cbx_[0-9a-f]+' | head -1 | cut -d= -f2)"
+  # warmup's lease summary line is `leased cbx_<hex> slug=… provider=…`; anchor on the
+  # lease keyword so a stray cbx_ token on an earlier line can't be mistaken for the id.
+  ID="$(echo "$out" | grep -oE 'lease[d=] *cbx_[0-9a-f]{6,}' | head -1 | grep -oE 'cbx_[0-9a-f]{6,}')"
   [ -n "$ID" ] || { echo "✗ could not parse lease id"; exit 1; }
   echo "$ID" > "$IDFILE"; echo "  (lease $ID)"
 
